@@ -456,7 +456,38 @@ Use the **Full Format** for significant work, or the **Mini Format** for quick f
 - `templates/index.html` — หน้าเว็บ v2.0 Free Unlimited Edition
 - `scratch/vps/deploy_vps.py` — สคริปต์ deploy VPS รวดเร็วและแม่นยำ
 - `.gitignore` — กำหนดรายการไฟล์ที่ไม่ต้องการ commit
+
 ---
+
+## [2026-08-29] | Mobile Responsive & Viewport Fit Optimization (v2.0.1)
+**Status:** ✅ Complete
+**Type:** 🎨 UI/UX
+**Impact:** 🟡 Medium
+
+### TL;DR
+> ปรับปรุง CSS และ Layout ใน `templates/index.html` ให้รองรับหน้าจอมือถือทุกขนาดอย่างสมบูรณ์ ป้องกันปัญหาล้นจอ (Horizontal Overflow), ปรับ Header, Typography, Chat Mockup, Hero Buttons และ Sticky CTA ให้กระชับพอดีจอ 100%
+
+### 📝 Planned Actions
+- [x] ปรับ CSS reset, `overflow-x: hidden`, `width: 100%`, `max-width: 100vw` ให้ทุก element
+- [x] ปรับ Header ให้ responsive ซ่อนเมนูยาวบนจอเล็ก และจัดการ Logo/Badge ให้อยู่ในบรรทัดเดียว
+- [x] ปรับ Typography ด้วย `clamp()` ให้หัวข้อและข้อความปรับขนาดตามหน้าจอมือถืออัตโนมัติ
+- [x] ปรับ Hero actions, Social proof bar, QR code container, Chat Mockup และ Trust banner ให้พอดีขอบจอมือถือ
+- [x] ปรับ Sticky CTA บนมือถือให้เป็นแถบเต็มความกว้างกดง่าย
+- [x] Deploy ขึ้น VPS และ Git commit + push
+- [x] อัปเดต Agent Journal & Companion HTML
+
+### 🔨 Execution Log
+1. ✅ `Modified templates/index.html` — ปรับ CSS & Responsive Layout
+2. ✅ `Deployed to VPS 178.128.59.217` — อัปโหลดไฟล์ index.html ขึ้น VPS
+3. ✅ `Verified VPS status & MD5 hash` — MD5 hash ตรงกัน 100%
+4. ✅ `Pushed to GitHub` — commit v2.0.1 ขึ้น GitHub
+5. ✅ `Updated Agent-Journal.md & Agent-Journal.html` — บันทึกผลการทำงาน
+
+### 📂 Files Changed
+- `templates/index.html` — ปรับปรุง CSS & Responsive Layout สำหรับมือถือ
+---
+
+
 
 
 
