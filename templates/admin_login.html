@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login — FileSaverBot</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#09090e;color:#f1f5f9;font-family:'Outfit',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center}
+  .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:24px;padding:48px 40px;width:100%;max-width:380px;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+  .logo{font-size:20px;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#fff,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:#64748b;font-size:13px;margin-bottom:36px}
+  label{display:block;font-size:13px;color:#94a3b8;margin-bottom:8px;font-weight:500}
+  input[type=password]{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;color:#f1f5f9;font-size:15px;outline:none;transition:border .2s}
+  input[type=password]:focus{border-color:#4f46e5}
+  .error{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171;padding:10px 14px;border-radius:10px;font-size:13px;margin-top:16px}
+  button{margin-top:24px;width:100%;background:linear-gradient(135deg,#6366f1,#4f46e5);border:none;border-radius:12px;padding:15px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .2s}
+  button:hover{opacity:.9}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">FileSaverBot</div>
+  <div class="sub">Admin Dashboard</div>
+  <form method="POST">
+    <label>รหัสผ่าน</label>
+    <input type="password" name="password" autofocus placeholder="••••••••">
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    <button type="submit">เข้าสู่ระบบ</button>
+  </form>
+</div>
+</body>
+</html>

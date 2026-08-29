@@ -1,0 +1,597 @@
+[
+  {
+    "path": "Google Drive Token Generator.py",
+    "ext": ".py",
+    "context": "# \u0e01\u0e33\u0e2b\u0e19\u0e14\u0e2a\u0e34\u0e17\u0e18\u0e34\u0e4c\u0e17\u0e35\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23 SCOPES = ['https://www.googleapis.com/auth/drive']"
+  },
+  {
+    "path": "New Text Document.txt",
+    "ext": ".txt",
+    "context": "line-bot-save-files-to-drive@file-saver-479919.iam.gserviceaccount.com https://drive.google.com/drive/u/0/folders/19kjaPia0hFhREVpJdTdTj-Jnp4xyPp3K"
+  },
+  {
+    "path": "agent-map.py",
+    "ext": ".py",
+    "context": "IGNORE_DIRS = {"
+  },
+  {
+    "path": "chat_log.db",
+    "ext": ".db",
+    "context": "[Binary or unreadable]"
+  },
+  {
+    "path": "client_secret.json",
+    "ext": ".json",
+    "context": "{\"web\":{\"client_id\":\"924021028932-5n28hfaek8bcpc9g9ac7dhpiv1ihm8of.apps.googleusercontent.com\",\"project_id\":\"filesaverbot\",\"auth_uri\":\"https://account..."
+  },
+  {
+    "path": "credentials.json",
+    "ext": ".json",
+    "context": "{ \"type\": \"service_account\", \"project_id\": \"file-saver-479919\", \"private_key_id\": \"60082fddc695c53ff61eb45375bccfcf68a6f8ab\", \"private_key\": \"-----BEG..."
+  },
+  {
+    "path": "deploy.bat",
+    "ext": ".bat",
+    "context": "@echo off set VPS_IP=178.128.59.217 set VPS_USER=root set DEST_DIR=/root/filesaverbot"
+  },
+  {
+    "path": "file-saver-479919-feb9641cc74e.json",
+    "ext": ".json",
+    "context": "{ \"type\": \"service_account\", \"project_id\": \"file-saver-479919\", \"private_key_id\": \"feb9641cc74e0c495e8a469dbe3baa1a0b28684c\", \"private_key\": \"-----BEG..."
+  },
+  {
+    "path": "filesaver_bot.py",
+    "ext": ".py",
+    "context": ""
+  },
+  {
+    "path": "filesaver_bot.py.bak",
+    "ext": ".bak",
+    "context": ""
+  },
+  {
+    "path": "filesaverbot_V1.rar",
+    "ext": ".rar",
+    "context": "[Binary or unreadable]"
+  },
+  {
+    "path": "generate_admin_rich_menu.py",
+    "ext": ".py",
+    "context": "\"\"\" generate_admin_rich_menu.py - \u0e2a\u0e23\u0e49\u0e32\u0e07\u0e23\u0e39\u0e1b Admin Rich Menu \u0e1b\u0e38\u0e48\u0e21\u0e1e\u0e34\u0e40\u0e28\u0e29\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e41\u0e2d\u0e14\u0e21\u0e34\u0e19: \u0e2a\u0e16\u0e32\u0e19\u0e30\u0e23\u0e30\u0e1a\u0e1a | Admin List | \u0e2d\u0e19\u0e38\u0e21\u0e31\u0e15\u0e34 | \u0e2a\u0e23\u0e38\u0e1b\u0e41\u0e0a\u0e17 | \u0e40\u0e01\u0e47\u0e1a\u0e15\u0e01 | \u0e41\u0e08\u0e49\u0e07\u0e42\u0e2d\u0e19 \"\"\""
+  },
+  {
+    "path": "generate_rich_menu.py",
+    "ext": ".py",
+    "context": "\"\"\" Regenerates rich_menu.jpg without underlines using Pillow + Leelawadee font. Run: python generate_rich_menu.py \"\"\""
+  },
+  {
+    "path": "import_chat.py",
+    "ext": ".py",
+    "context": ""
+  },
+  {
+    "path": "journal.md",
+    "ext": ".md",
+    "context": "# FileSaverBot Journal ## Project Purpose \u0e08\u0e38\u0e14\u0e1b\u0e23\u0e30\u0e2a\u0e07\u0e04\u0e4c\u0e02\u0e2d\u0e07\u0e1a\u0e2d\u0e17\u0e15\u0e31\u0e27\u0e19\u0e35\u0e49\u0e04\u0e37\u0e2d\u0e0a\u0e48\u0e27\u0e22\u0e40\u0e0b\u0e1f\u0e44\u0e1f\u0e25\u0e4c\u0e08\u0e32\u0e01\u0e41\u0e0a\u0e17 LINE (\u0e17\u0e35\u0e48\u0e21\u0e31\u0e01\u0e08\u0e30\u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38) \u0e44\u0e1b\u0e40\u0e01\u0e47\u0e1a\u0e23\u0e31\u0e01\u0e29\u0e32\u0e44\u0e27\u0e49\u0e17\u0e35\u0e48 Google Drive \u0e42\u0e14\u0e22\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15..."
+  },
+  {
+    "path": "promptpay.py",
+    "ext": ".py",
+    "context": "def crc16_ccitt(data: str) -> str: data_bytes = data.encode('utf-8') crc = 0xFFFF for byte in data_bytes: crc ^= (byte << 8)"
+  },
+  {
+    "path": "server_check.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "setup_admin_rich_menu.py",
+    "ext": ".py",
+    "context": "\"\"\" setup_admin_rich_menu.py \u0e23\u0e31\u0e19\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e2a\u0e23\u0e49\u0e32\u0e07 Admin Rich Menu \u0e41\u0e25\u0e30\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a\u0e41\u0e2d\u0e14\u0e21\u0e34\u0e19\u0e17\u0e38\u0e01\u0e04\u0e19\u0e43\u0e19\u0e23\u0e30\u0e1a\u0e1a \"\"\""
+  },
+  {
+    "path": "setup_rich_menu.py",
+    "ext": ".py",
+    "context": "\"\"\" setup_rich_menu.py \u0e23\u0e31\u0e19\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e19\u0e35\u0e49\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e2a\u0e23\u0e49\u0e32\u0e07 Rich Menu \u0e43\u0e19 LINE Bot \"\"\""
+  },
+  {
+    "path": "temp_list.py",
+    "ext": ".py",
+    "context": "genai.configure(api_key=[REDACTED_API_KEY]) try: for m in genai.list_models():"
+  },
+  {
+    "path": "temp_reimport.py",
+    "ext": ".py",
+    "context": "DB_FILE = '/home/nctlite/filesaverbot/chat_log.db'"
+  },
+  {
+    "path": "test_pkce.py",
+    "ext": ".py",
+    "context": "flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file( 'client_secret.json',"
+  },
+  {
+    "path": "test_pkce2.py",
+    "ext": ".py",
+    "context": "print(\"fetch_token kwargs:\", google_auth_oauthlib.flow.Flow.fetch_token.__code__.co_varnames) print(\"authorization_url kwargs:\", google_auth_oauthlib...."
+  },
+  {
+    "path": "token.json",
+    "ext": ".json",
+    "context": "{\"token\": \"[REDACTED_OAUTH_TOKEN]..."
+  },
+  {
+    "path": "token.json.bak",
+    "ext": ".bak",
+    "context": "{\"token\": \"[REDACTED_OAUTH_TOKEN]..."
+  },
+  {
+    "path": "weekly_cron.log",
+    "ext": ".log",
+    "context": "/home/nctlite/filesaverbot/weekly_summary.py:76: LineBotSdkDeprecatedIn30: Call to deprecated class TextMessage. (Use 'from linebot.v3.webhooks import..."
+  },
+  {
+    "path": "weekly_summary.py",
+    "ext": ".py",
+    "context": ""
+  },
+  {
+    "path": ".claude/settings.json",
+    "ext": ".json",
+    "context": "{ \"permissions\": { \"allow\": [ \"Bash(curl -s -o /dev/null -w \\\"%{http_code}\\\" https://filesaver.deathwolftech.site/)\", \"Bash(curl -s -o /dev/null -w \\\"..."
+  },
+  {
+    "path": ".claude/settings.local.json",
+    "ext": ".json",
+    "context": "{ \"permissions\": { \"allow\": [ \"Bash(pip show *)\", \"Bash(pip list *)\","
+  },
+  {
+    "path": "deploy/filesaverbot.service",
+    "ext": ".service",
+    "context": "[Unit] Description=File Saver LINE Bot Service (SaaS Version) After=network.target [Service]"
+  },
+  {
+    "path": "deploy/nginx.conf",
+    "ext": ".conf",
+    "context": "server { listen 80; server_name _; # Replace with your domain name (e.g. bot.yourdomain.com) location / {"
+  },
+  {
+    "path": "extracted_v1/filesaverbot/credentials.json",
+    "ext": ".json",
+    "context": "{ \"type\": \"service_account\", \"project_id\": \"file-saver-479919\", \"private_key_id\": \"60082fddc695c53ff61eb45375bccfcf68a6f8ab\", \"private_key\": \"-----BEG..."
+  },
+  {
+    "path": "extracted_v1/filesaverbot/filesaver_bot.py",
+    "ext": ".py",
+    "context": ""
+  },
+  {
+    "path": "extracted_v1/filesaverbot/token.json",
+    "ext": ".json",
+    "context": "{\"token\": \"[REDACTED_OAUTH_TOKEN]..."
+  },
+  {
+    "path": "filesaverbot/credentials.json",
+    "ext": ".json",
+    "context": "{ \"type\": \"service_account\", \"project_id\": \"file-saver-479919\", \"private_key_id\": \"60082fddc695c53ff61eb45375bccfcf68a6f8ab\", \"private_key\": \"-----BEG..."
+  },
+  {
+    "path": "filesaverbot/filesaver_bot.py",
+    "ext": ".py",
+    "context": ""
+  },
+  {
+    "path": "filesaverbot/token.json",
+    "ext": ".json",
+    "context": "{\"token\": \"[REDACTED_OAUTH_TOKEN]..."
+  },
+  {
+    "path": "pending_uploads/BOQ_R1.xlsx",
+    "ext": ".xlsx",
+    "context": "[Binary or unreadable]"
+  },
+  {
+    "path": "pending_uploads/Proforma Invoice-HW20260501A.pdf",
+    "ext": ".pdf",
+    "context": "[Binary or unreadable]"
+  },
+  {
+    "path": "pending_uploads/Proforma Invoice-HW20260501A.xlsx",
+    "ext": ".xlsx",
+    "context": "[Binary or unreadable]"
+  },
+  {
+    "path": "RAW_Chat/[LINE]3king Axie.txt",
+    "ext": ".txt",
+    "context": "2026.02.25 Wednesday 09:41 Torre https://www.chiangmainews.co.th/social/3888473/ 09:42 Torre Photos 09:42 NCT_FileSaverBot \u2705 \u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e40\u0e23\u0e35\u0e22\u0e1a\u0e23\u0e49\u0e2d\u0e22: img_6025..."
+  },
+  {
+    "path": "RAW_Chat/[LINE]Discuss nCt blue.txt",
+    "ext": ".txt",
+    "context": "2026.02.25 Wednesday 14:25 Torre @Chet_^o^78\ud83e\udd0e\ud83e\udd0e share contact \u0e15\u0e49\u0e19 \u0e43\u0e2b\u0e49\u0e1e\u0e35\u0e48\u0e40\u0e01\u0e48\u0e07 \u0e14\u0e49\u0e27\u0e22\u0e19\u0e30 \u0e17\u0e35\u0e48\u0e08\u0e30\u0e44\u0e1b\u0e04\u0e38\u0e22\u0e07\u0e32\u0e19 civil 14:26 Torre \u0e08\u0e23\u0e34\u0e07\u0e46 \u0e16\u0e49\u0e32\u0e40\u0e1b\u0e47\u0e19\u0e44\u0e1b\u0e44\u0e14\u0e49\u0e01\u0e47\u0e25\u0e2d\u0e07\u0e14\u0e39\u0e07\u0e32\u0e19\u0e2d\u0e37\u0e48\u0e19\u0e46\u0e21\u0e32..."
+  },
+  {
+    "path": "RAW_Chat/[LINE]PM All Project(NCT).txt",
+    "ext": ".txt",
+    "context": "2026.03.15 Sunday 21:28 Torre Torre added Chet_^o^789\ud83e\udd0e\ud83e\udd0e, DeathWolf 222324, Tong! to the group. <a href=\"line://nv/group/settings/groupname/chatId=c291..."
+  },
+  {
+    "path": "scratch/check_token.py",
+    "ext": ".py",
+    "context": ""
+  },
+  {
+    "path": "scratch/deploy_bot_vps.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') host    = '178.128.59.217' username= 'root'"
+  },
+  {
+    "path": "scratch/deploy_richmenu_via_vps.py",
+    "ext": ".py",
+    "context": "\"\"\" Upload rich_menu.jpg to VPS then run deploy_user_menu.py remotely. \"\"\" sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/deploy_user_menu.py",
+    "ext": ".py",
+    "context": "load_dotenv() token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN')"
+  },
+  {
+    "path": "scratch/log_search_results.txt",
+    "ext": ".txt",
+    "context": "--- Line 103 --- 98: {\"step_index\":272,\"source\":\"MODEL\",\"type\":\"PLANNER_RESPONSE\",\"status\":\"DONE\",\"created_at\":\"2026-05-26T12:03:32Z\",\"tool_calls\":[{\"..."
+  },
+  {
+    "path": "scratch/pi_logs.txt",
+    "ext": ".txt",
+    "context": "=== JOURNALCTL LOGS === \u0e1e.\u0e04. 26 21:22:19 raspberrypi systemd[1]: Started filesaverbot.service - File Saver Line Bot. \u0e1e.\u0e04. 26 21:22:36 raspberrypi pyth..."
+  },
+  {
+    "path": "scratch/read_last_lines.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') with open(r\"C:\\Users\\user\\.gemini\\antigravity\\brain\\d7c3ed78-3274-4649-9d63-de097996e574\\.system_generated\\lo..."
+  },
+  {
+    "path": "scratch/search_user_tokens.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') with open(r\"C:\\Users\\user\\.gemini\\antigravity\\brain\\d7c3ed78-3274-4649-9d63-de097996e574\\.system_generated\\lo..."
+  },
+  {
+    "path": "scratch/update_journal_html.py",
+    "ext": ".py",
+    "context": "def update_journal(): agents_dir = r\"d:\\00_Python\\FileSaverBot\\.agents\" md_path = os.path.join(agents_dir, \"Agent-Journal.md\")"
+  },
+  {
+    "path": "scratch/pi/check_configs.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93'"
+  },
+  {
+    "path": "scratch/pi/check_dhcpcd.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/check_logs.py",
+    "ext": ".py",
+    "context": "# Set output encoding to utf-8 sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/pi/check_network.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/check_pi_dmesg.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/pi/check_pi_error.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/pi/check_pi_full_logs.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/check_pi_linebot_v3.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') host, port, username, password = '100.100.52.93', 22, 'nctlite', '121212' ssh = paramiko.SSHClient()"
+  },
+  {
+    "path": "scratch/pi/check_pi_logs.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/pi/check_pi_oom.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/pi/check_pi_swap.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/pi/check_pi_venv.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') host, port, username, password = '100.100.52.93', 22, 'nctlite', '121212' ssh = paramiko.SSHClient()"
+  },
+  {
+    "path": "scratch/pi/check_service.py",
+    "ext": ".py",
+    "context": "# Set output encoding to utf-8 sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/pi/check_swap_file.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/pi/check_tailscale.py",
+    "ext": ".py",
+    "context": "# Set output encoding to utf-8 sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/pi/compare_dir.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22"
+  },
+  {
+    "path": "scratch/pi/compare_versions.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93'"
+  },
+  {
+    "path": "scratch/pi/deploy.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22"
+  },
+  {
+    "path": "scratch/pi/deploy_bot_pi.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') host, port, username, password = '100.100.52.93', 22, 'nctlite', '121212' LOCAL  = r'd:\\00_Python\\FileSaverBo..."
+  },
+  {
+    "path": "scratch/pi/deploy_weekly_summary.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/pi/download_all_remote.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93'"
+  },
+  {
+    "path": "scratch/pi/download_token.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22"
+  },
+  {
+    "path": "scratch/pi/enable_pi_swap.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/pi/find_bot.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/fix_dns_permanent.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/fix_dns_tailscale.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/fix_dns_temp.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/get_public_ip.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/list_filesaverbot.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22"
+  },
+  {
+    "path": "scratch/pi/list_remote.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22"
+  },
+  {
+    "path": "scratch/pi/manual_dns_fix.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/quick_check_pi.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/pi/read_service.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/revert_pi_weekly_summary.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') host, port, username, password = '100.100.52.93', 22, 'nctlite', '121212' REMOTE_PATH = '/home/nctlite/filesa..."
+  },
+  {
+    "path": "scratch/pi/test_direct_conn.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/test_ip_ping.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/test_nslookup.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/test_ping.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/update_service.py",
+    "ext": ".py",
+    "context": "host = '100.100.52.93' port = 22 username = 'nctlite'"
+  },
+  {
+    "path": "scratch/pi/view_pi_details.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/vps/change_domain_vps.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/vps/check_service_logs.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/vps/check_vps_client_secret.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') host = '178.128.59.217' username = 'root'"
+  },
+  {
+    "path": "scratch/vps/check_vps_cron.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') host = '178.128.59.217' username = 'root'"
+  },
+  {
+    "path": "scratch/vps/check_vps_logs.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') host = '178.128.59.217' username = 'root'"
+  },
+  {
+    "path": "scratch/vps/copy_deploy_files.py",
+    "ext": ".py",
+    "context": "host = '178.128.59.217' username = 'root'"
+  },
+  {
+    "path": "scratch/vps/deploy_vps.py",
+    "ext": ".py",
+    "context": "host = '178.128.59.217'"
+  },
+  {
+    "path": "scratch/vps/deploy_weekly_vps.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') host = '178.128.59.217' username = 'root'"
+  },
+  {
+    "path": "scratch/vps/finalize_vps.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/vps/inspect_nginx.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/vps/inspect_vps.py",
+    "ext": ".py",
+    "context": "# Ensure UTF-8 output encoding sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/vps/read_vps_env.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/vps/remove_vps_weekly.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') host = '178.128.59.217' username = 'root'"
+  },
+  {
+    "path": "scratch/vps/restart_service.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/vps/search_logs.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') with open(r\"C:\\Users\\user\\.gemini\\antigravity\\brain\\d7c3ed78-3274-4649-9d63-de097996e574\\.system_generated\\lo..."
+  },
+  {
+    "path": "scratch/vps/setup_vps_cron.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8') host = '178.128.59.217' username = 'root'"
+  },
+  {
+    "path": "scratch/vps/setup_vps_packages.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/vps/test_vps_conn.py",
+    "ext": ".py",
+    "context": "host = '178.128.59.217' username = 'root'"
+  },
+  {
+    "path": "scratch/vps/update_vps_secret.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "scratch/vps/view_live_logs.py",
+    "ext": ".py",
+    "context": "sys.stdout.reconfigure(encoding='utf-8')"
+  },
+  {
+    "path": "templates/admin_dashboard.html",
+    "ext": ".html",
+    "context": "<!DOCTYPE html> <html lang=\"th\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+  },
+  {
+    "path": "templates/admin_login.html",
+    "ext": ".html",
+    "context": "<!DOCTYPE html> <html lang=\"th\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+  },
+  {
+    "path": "templates/auth.html",
+    "ext": ".html",
+    "context": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+  },
+  {
+    "path": "templates/index.html",
+    "ext": ".html",
+    "context": "<!DOCTYPE html> <html lang=\"th\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+  },
+  {
+    "path": "templates/privacy.html",
+    "ext": ".html",
+    "context": "<!DOCTYPE html> <html lang=\"th\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+  },
+  {
+    "path": "templates/success.html",
+    "ext": ".html",
+    "context": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+  },
+  {
+    "path": "templates/terms.html",
+    "ext": ".html",
+    "context": "<!DOCTYPE html> <html lang=\"th\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+  }
+]

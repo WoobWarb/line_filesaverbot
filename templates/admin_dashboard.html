@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — FileSaverBot</title>
+<style>
+  :root{--bg:#09090e;--panel:rgba(255,255,255,.03);--border:rgba(255,255,255,.08);--text:#f1f5f9;--muted:#94a3b8;--accent:#4f46e5;--green:#06c755;--red:#ef4444;--yellow:#fbbf24}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'Outfit',system-ui,sans-serif;min-height:100vh}
+  a{text-decoration:none;color:inherit}
+
+  /* TOPBAR */
+  .topbar{background:rgba(255,255,255,.02);border-bottom:1px solid var(--border);padding:0 28px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+  .topbar-logo{font-size:17px;font-weight:800;background:linear-gradient(135deg,#fff,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .topbar-right{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--muted)}
+  .logout-btn{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+  .logout-btn:hover{background:rgba(239,68,68,.15)}
+
+  /* LAYOUT */
+  .container{max-width:1300px;margin:0 auto;padding:32px 24px}
+
+  /* STAT CARDS */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-bottom:36px}
+  .stat{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:24px 22px}
+  .stat-label{font-size:12px;color:var(--muted);font-weight:500;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+  .stat-value{font-size:32px;font-weight:800;line-height:1}
+  .stat-sub{font-size:12px;color:var(--muted);margin-top:6px}
+  .c-green{color:#4ade80} .c-blue{color:#818cf8} .c-yellow{color:var(--yellow)} .c-purple{color:#c084fc} .c-cyan{color:#22d3ee}
+
+  /* SECTION */
+  .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .section-title{font-size:16px;font-weight:700}
+  .section-sub{font-size:12px;color:var(--muted)}
+
+  /* TABLE */
+  .table-wrap{background:var(--panel);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:32px}
+  table{width:100%;border-collapse:collapse}
+  thead th{padding:14px 18px;text-align:left;font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
+  tbody td{padding:13px 18px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:rgba(255,255,255,.02)}
+
+  /* BADGES */
+  .badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700}
+  .badge-premium{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.25);color:var(--yellow)}
+  .badge-free{background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.15);color:var(--muted)}
+  .badge-expired{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171}
+  .badge-yes{background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2);color:#4ade80}
+  .badge-no{background:rgba(148,163,184,.06);color:var(--muted)}
+
+  /* BUTTONS */
+  .btn{display:inline-block;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:600;border:none;cursor:pointer;transition:all .2s}
+  .btn-approve{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);color:#4ade80}
+  .btn-approve:hover{background:rgba(74,222,128,.2)}
+  .btn-revoke{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171}
+  .btn-revoke:hover{background:rgba(239,68,68,.15)}
+  .btn-remove{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#f87171;padding:4px 10px;font-size:11px}
+  .btn-remove:hover{background:rgba(239,68,68,.15)}
+  .btn-add{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;padding:10px 20px;border-radius:10px;font-size:13px}
+  .btn-add:hover{opacity:.9}
+
+  /* GRID COLS */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:32px}
+  @media(max-width:1100px){.grid3{grid-template-columns:1fr 1fr}}
+  @media(max-width:900px){.grid2{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}}
+
+  /* PANEL */
+  .panel{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:24px}
+
+  /* ADD ADMIN FORM */
+  .add-form{display:flex;gap:10px;margin-top:16px}
+  .add-form input{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--text);font-size:13px;outline:none}
+  .add-form input:focus{border-color:var(--accent)}
+
+  /* ADMIN LIST */
+  .admin-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+  .admin-row:last-child{border-bottom:none}
+  .admin-id{font-family:monospace;font-size:12px;color:var(--muted)}
+
+  /* TREND BAR */
+  .trend{display:flex;align-items:flex-end;gap:6px;height:48px;margin-top:8px}
+  .bar-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+  .bar{background:rgba(99,102,241,.4);border-radius:4px 4px 0 0;width:100%;min-height:4px;transition:background .2s}
+  .bar:hover{background:rgba(99,102,241,.8)}
+  .bar-label{font-size:9px;color:var(--muted)}
+
+  /* USER ID */
+  .uid{font-family:monospace;font-size:11px;color:var(--muted)}
+
+  /* EMPTY STATE */
+  .empty{text-align:center;padding:40px;color:var(--muted);font-size:13px}
+
+  /* SUPPORT */
+  .support-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:12px;transition:border .2s}
+  .support-card.unread{border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.02)}
+  .support-meta{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .support-uid{font-family:monospace;font-size:11px;color:var(--muted)}
+  .support-time{font-size:11px;color:var(--muted);margin-left:auto}
+  .support-msg{font-size:14px;line-height:1.5;margin-bottom:12px}
+  .support-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+  /* MODAL */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center}
+  .modal-overlay.open{display:flex}
+  .modal{background:#13131f;border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;max-width:480px;box-shadow:0 40px 80px rgba(0,0,0,.6)}
+  .modal h3{font-size:16px;font-weight:700;margin-bottom:6px}
+  .modal .modal-uid{font-family:monospace;font-size:11px;color:var(--muted);margin-bottom:20px}
+  .modal textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:12px;padding:14px;color:var(--text);font-size:14px;font-family:inherit;resize:vertical;min-height:100px;outline:none}
+  .modal textarea:focus{border-color:var(--accent)}
+  .modal-actions{display:flex;gap:10px;margin-top:16px;justify-content:flex-end}
+  .btn-cancel{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);padding:10px 18px;border-radius:10px;font-size:13px;cursor:pointer}
+  .btn-send{background:linear-gradient(135deg,#6366f1,#4f46e5);border:none;color:#fff;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer}
+
+  .notif-dot{display:inline-block;background:#ef4444;color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:99px;margin-left:6px;vertical-align:middle}
+
+  @media(max-width:700px){
+    thead th:nth-child(n+4),tbody td:nth-child(n+4){display:none}
+    .stats{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- SEND MESSAGE MODAL -->
+<div class="modal-overlay" id="msgModal">
+  <div class="modal">
+    <h3>ส่งข้อความถึงผู้ใช้</h3>
+    <div class="modal-uid" id="modalUid"></div>
+    <form method="POST" id="msgForm">
+      <textarea name="message" placeholder="พิมพ์ข้อความที่ต้องการส่ง..." autofocus></textarea>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeModal()">ยกเลิก</button>
+        <button type="submit" class="btn-send">ส่งข้อความ 💬</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="topbar">
+  <div class="topbar-logo">⚙️ FileSaverBot Admin</div>
+  <div class="topbar-right">
+    <span>{{ now.strftime('%d %b %Y  %H:%M') }}</span>
+    <a href="/admin/logout"><button class="logout-btn">ออกจากระบบ</button></a>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">ผู้ใช้ทั้งหมด</div>
+      <div class="stat-value c-blue">{{ total_users }}</div>
+      <div class="stat-sub">บัญชีที่ลงทะเบียน</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Premium</div>
+      <div class="stat-value c-yellow">{{ premium_users }}</div>
+      <div class="stat-sub">จาก {{ total_users }} ทั้งหมด</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">อัปโหลดวันนี้</div>
+      <div class="stat-value c-green">{{ today_uploads }}</div>
+      <div class="stat-sub">ไฟล์</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">สลิปที่ตรวจแล้ว</div>
+      <div class="stat-value c-purple">{{ total_slips }}</div>
+      <div class="stat-sub">auto-verified</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">รายได้รวม</div>
+      <div class="stat-value c-cyan">฿{{ "%.0f"|format(total_revenue) }}</div>
+      <div class="stat-sub">จากสลิปที่ยืนยันแล้ว</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">ผู้เข้าชมเว็บ (Internal)</div>
+      <div class="stat-value" style="color:#f472b6">{{ local_total_views }}</div>
+      <div class="stat-sub">วันนี้ {{ local_today_views }} คน</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">ผู้เข้าชมเว็บ (GA4)</div>
+      <div class="stat-value" style="color:#f97316">{{ ga4_total }}</div>
+      <div class="stat-sub">วันนี้ {{ ga4_today }} คน</div>
+    </div>
+  </div>
+
+  <!-- UPLOAD TREND + VISITOR TREND + ADMIN IDs -->
+  <div class="grid3">
+    <!-- Trend -->
+    <div class="panel">
+      <div class="section-title">อัปโหลด 7 วันล่าสุด</div>
+      {% if trend %}
+        {% set max_val = trend | map(attribute=1) | max %}
+        <div class="trend" style="margin-top:16px">
+          {% for row in trend %}
+            {% set pct = (row[1] / max_val * 100) if max_val > 0 else 4 %}
+            <div class="bar-wrap">
+              <div class="bar" style="height:{{ [pct,4]|max }}%" title="{{ row[1] }} ไฟล์"></div>
+              <div class="bar-label">{{ row[0][5:] }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty">ยังไม่มีข้อมูล</div>
+      {% endif %}
+    </div>
+
+    <!-- Visitor Trend (Local + GA4) -->
+    <div class="panel">
+      <div class="section-title">ผู้เข้าชม 7 วัน (Internal / GA4)</div>
+      
+      <!-- Local Trend -->
+      <div style="font-size:11px;color:var(--muted);margin-top:16px">Internal:</div>
+      {% if local_views_trend %}
+        {% set max_v_local = local_views_trend | map(attribute=1) | max %}
+        <div class="trend" style="margin-top:4px">
+          {% for row in local_views_trend %}
+            {% set pct = (row[1] / max_v_local * 100) if max_v_local > 0 else 4 %}
+            <div class="bar-wrap">
+              <div class="bar" style="height:{{ [pct,4]|max }}%;background:rgba(244,114,182,.4)" title="{{ row[1] }} คน"></div>
+              <div class="bar-label">{{ row[0][5:] }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty" style="padding:10px">ไม่มีข้อมูล Internal</div>
+      {% endif %}
+
+      <!-- GA4 Trend -->
+      <div style="font-size:11px;color:var(--muted);margin-top:12px">GA4:</div>
+      {% if ga4_trend %}
+        {% set max_v_ga4 = ga4_trend | map(attribute=1) | max %}
+        <div class="trend" style="margin-top:4px">
+          {% for row in ga4_trend %}
+            {% set pct = (row[1] / max_v_ga4 * 100) if max_v_ga4 > 0 else 4 %}
+            <div class="bar-wrap">
+              <div class="bar" style="height:{{ [pct,4]|max }}%;background:rgba(249,115,22,.4)" title="{{ row[1] }} คน"></div>
+              <div class="bar-label">{{ row[0][5:] }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty" style="padding:10px">ไม่มีข้อมูล GA4</div>
+      {% endif %}
+      
+      <div style="margin-top: 16px;">
+        <a href="https://analytics.google.com/analytics/web/" target="_blank" class="btn" style="background:rgba(255,255,255,.05); border:1px solid var(--border); color:var(--text); padding:8px 16px; font-size:12px; font-weight:600; width:100%; border-radius:10px; text-align:center; display:block; transition:all 0.2s;">
+          📊 เปิด Google Analytics
+        </a>
+      </div>
+    </div>
+
+    <!-- Admin LINE IDs -->
+    <div class="panel">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Admin LINE IDs</div>
+          <div class="section-sub">รับการแจ้งเตือนและคำสั่ง /approve</div>
+        </div>
+      </div>
+
+      {% if admins %}
+        {% for a in admins %}
+        <div class="admin-row">
+          <div class="admin-id">{{ a[:12] }}...{{ a[-4:] }}</div>
+          <form method="POST" action="/admin/remove-line-admin/{{ a }}" style="display:inline">
+            <button class="btn btn-remove" type="submit">ลบ</button>
+          </form>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div style="color:var(--muted);font-size:13px;padding:12px 0">ยังไม่มี Admin ID</div>
+      {% endif %}
+
+      <form method="POST" action="/admin/add-line-admin" class="add-form">
+        <input type="text" name="line_id" placeholder="LINE User ID (Uxxxxxxx...)">
+        <button type="submit" class="btn btn-add">เพิ่ม</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- USERS TABLE -->
+  <div class="section-head">
+    <div>
+      <div class="section-title">ผู้ใช้ทั้งหมด</div>
+      <div class="section-sub">{{ total_users }} บัญชี · {{ premium_users }} Premium</div>
+    </div>
+  </div>
+  <div class="table-wrap">
+    {% if users %}
+    <table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Tier</th>
+          <th>หมดอายุ</th>
+          <th>Drive</th>
+          <th>อัปโหลดวันนี้</th>
+          <th>สมัครเมื่อ</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in users %}
+        {% set uid, tier, expires, has_drive, uploads, created = u %}
+        {% set is_expired = expires and expires < now.isoformat() %}
+        <tr>
+          <td class="uid">{{ uid[:8] }}...{{ uid[-4:] }}</td>
+          <td>
+            {% if tier == 'PREMIUM' and not is_expired %}
+              <span class="badge badge-premium">PREMIUM</span>
+            {% elif tier == 'PREMIUM' and is_expired %}
+              <span class="badge badge-expired">EXPIRED</span>
+            {% else %}
+              <span class="badge badge-free">FREE</span>
+            {% endif %}
+          </td>
+          <td style="font-size:12px;color:var(--muted)">
+            {{ expires[:10] if expires else '—' }}
+          </td>
+          <td>
+            {% if has_drive %}
+              <span class="badge badge-yes">✓</span>
+            {% else %}
+              <span class="badge badge-no">—</span>
+            {% endif %}
+          </td>
+          <td style="font-size:13px">{{ uploads }}</td>
+          <td style="font-size:11px;color:var(--muted)">{{ created[:10] if created else '—' }}</td>
+          <td>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <form method="POST" action="/admin/approve/{{ uid }}/30" style="display:inline"
+                onsubmit="return confirm('อนุมัติ Premium +30 วัน ให้ผู้ใช้นี้ใช่ไหม?')">
+                <button class="btn btn-approve" type="submit">+30 วัน</button>
+              </form>
+              <form method="POST" action="/admin/approve/{{ uid }}/365" style="display:inline"
+                onsubmit="return confirm('อนุมัติ Premium +365 วัน ให้ผู้ใช้นี้ใช่ไหม?')">
+                <button class="btn btn-approve" type="submit">+365 วัน</button>
+              </form>
+              {% if tier == 'PREMIUM' and not is_expired %}
+              <form method="POST" action="/admin/revoke/{{ uid }}" style="display:inline"
+                onsubmit="return confirm('ยกเลิก Premium ของผู้ใช้นี้ใช่ไหม?')">
+                <button class="btn btn-revoke" type="submit">ยกเลิก</button>
+              </form>
+              {% endif %}
+              <button class="btn" style="background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);color:#818cf8"
+                onclick="openModal('{{ uid }}')">💬 ส่ง</button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <div class="empty">ยังไม่มีผู้ใช้</div>
+    {% endif %}
+  </div>
+
+  <!-- SUPPORT INBOX -->
+  <div class="section-head">
+    <div>
+      <div class="section-title">
+        Support Inbox
+        {% if unread_count > 0 %}<span class="notif-dot">{{ unread_count }}</span>{% endif %}
+      </div>
+      <div class="section-sub">ข้อความจากผู้ใช้ผ่านคำสั่ง /support</div>
+    </div>
+  </div>
+
+  {% if support_msgs %}
+    {% for s in support_msgs %}
+    {% set sid, suid, smsg, stime, sreplied = s %}
+    <div class="support-card {{ '' if sreplied else 'unread' }}">
+      <div class="support-meta">
+        <span class="badge {{ 'badge-free' if sreplied else 'badge-premium' }}" style="{{ 'opacity:.5' if sreplied else '' }}">
+          {{ 'ตอบแล้ว' if sreplied else 'ใหม่' }}
+        </span>
+        <span class="support-uid">{{ suid[:12] if suid else '—' }}...{{ suid[-4:] if suid else '' }}</span>
+        <span class="support-time">{{ stime[:16] if stime else '—' }}</span>
+      </div>
+      <div class="support-msg">{{ smsg }}</div>
+      <div class="support-actions">
+        <button class="btn btn-approve" onclick="openModal('{{ suid }}')">💬 ส่งข้อความตอบกลับ</button>
+        {% if not sreplied %}
+        <form method="POST" action="/admin/support/{{ sid }}/mark-replied" style="display:inline">
+          <button class="btn btn-ghost" type="submit" style="background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted)">✓ ทำเครื่องหมายว่าตอบแล้ว</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="panel" style="text-align:center;padding:40px;color:var(--muted);font-size:13px;margin-bottom:32px">
+      ยังไม่มีข้อความ Support
+    </div>
+  {% endif %}
+
+  <!-- SLIPS -->
+  <div class="section-head">
+    <div>
+      <div class="section-title">สลิปที่ตรวจสอบล่าสุด</div>
+      <div class="section-sub">Auto-verified via Gemini</div>
+    </div>
+  </div>
+  <div class="table-wrap">
+    {% if slips %}
+    <table>
+      <thead>
+        <tr>
+          <th>Transaction Ref</th>
+          <th>User ID</th>
+          <th>ยอด</th>
+          <th>เวลา</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in slips %}
+        <tr>
+          <td style="font-family:monospace;font-size:12px">{{ s[0] }}</td>
+          <td class="uid">{{ s[1][:8] if s[1] else '—' }}...{{ s[1][-4:] if s[1] else '' }}</td>
+          <td style="color:#4ade80;font-weight:700">฿{{ "%.0f"|format(s[2]) }}</td>
+          <td style="font-size:12px;color:var(--muted)">{{ s[3][:16] if s[3] else '—' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <div class="empty">ยังไม่มีสลิปที่ผ่านการตรวจสอบ</div>
+    {% endif %}
+  </div>
+
+</div>
+<script>
+function openModal(uid) {
+  document.getElementById('modalUid').textContent = uid;
+  document.getElementById('msgForm').action = '/admin/message/' + uid;
+  document.getElementById('msgModal').classList.add('open');
+  setTimeout(() => document.querySelector('#msgModal textarea').focus(), 100);
+}
+function closeModal() {
+  document.getElementById('msgModal').classList.remove('open');
+  document.querySelector('#msgModal textarea').value = '';
+}
+document.getElementById('msgModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+</html>

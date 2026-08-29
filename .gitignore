@@ -1,0 +1,34 @@
+# Secrets & Credentials
+.env
+credentials.json
+client_secret.json
+token.json
+token.json.bak
+file-saver-*.json
+*.pem
+*.key
+id_ed25519*
+
+# Databases & Cache
+*.db
+*.db-journal
+__pycache__/
+*.pyc
+
+# Local runtime & uploads
+pending_uploads/
+slips/
+RAW_Chat/
+extracted_v1/
+filesaverbot/
+scratch/
+*.rar
+*.zip
+*.log
+*.bak
+temp_*
+patch*.py
+
+# Python venv
+venv/
+.venv/

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://filesaver.deathwolftech.site/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://filesaver.deathwolftech.site/payment/qr?source_id=test&amount=89\")",
+      "Bash(ssh -V)",
+      "Bash(cp \"d:/00_Python/id_ed25519\" /tmp/vps_key)",
+      "Bash(chmod 600 /tmp/vps_key)",
+      "Bash(ssh -i /tmp/vps_key -o StrictHostKeyChecking=no -o IdentitiesOnly=yes root@178.128.59.217 \"echo connected\")",
+      "Bash(ssh -o StrictHostKeyChecking=no nctlite@100.100.52.93 \"systemctl status filesaverbot --no-pager | head -20\")"
+    ]
+  }
+}

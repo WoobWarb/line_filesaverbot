@@ -1,0 +1,14 @@
+[Unit]
+Description=File Saver LINE Bot Service (SaaS Version)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/filesaverbot
+ExecStart=/root/filesaverbot/venv/bin/python -u filesaver_bot.py
+Restart=always
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

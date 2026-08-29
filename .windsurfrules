@@ -1,0 +1,37 @@
+
+# Documentation Rule
+- PRE-JOURNALING: ALWAYS write an initial entry in .agents/Agent-Journal.md BEFORE making any code changes. Set status to ???? In Progress and list planned actions.
+- COMPLETION: Once work is complete, update the entry's status to ??? Complete.
+- Read .agents/PROJECT_MAP.md (if it exists) before starting.
+- Do not ask for permission to journal, just do it automatically.
+
+
+# Documentation Rule
+- PRE-JOURNALING: ALWAYS write an initial entry in .agents/Agent-Journal.md BEFORE making any code changes. Set status to ???? In Progress and list planned actions.
+- COMPLETION: Once work is complete, update the entry's status to ??? Complete.
+- Read .agents/PROJECT_MAP.md (if it exists) before starting.
+- Do not ask for permission to journal, just do it automatically.
+
+
+# Documentation Rule
+- PRE-JOURNALING: ALWAYS write an initial entry in .agents/Agent-Journal.md BEFORE making any code changes. Set status to ???? In Progress and list planned actions.
+- COMPLETION: Once work is complete, update the entry's status to ??? Complete.
+- Read .agents/PROJECT_MAP.md (if it exists) before starting.
+- Do not ask for permission to journal, just do it automatically.
+
+
+# Documentation Rule
+- PRE-JOURNALING: ALWAYS write an initial entry in .agents/Agent-Journal.md BEFORE making any code changes. Set status to ???? In Progress and list planned actions.
+- COMPLETION: Once work is complete, update the entry's status to ??? Complete.
+- Read .agents/PROJECT_MAP.md (if it exists) before starting.
+- Do not ask for permission to journal, just do it automatically.
+
+
+# Agent Journal Rules
+- Read and follow .agents/AGENTS.md for journaling and context rules.
+- PRE-JOURNALING: ALWAYS write an initial entry in .agents/Agent-Journal.md BEFORE making any code changes. Set status to In Progress and list planned actions.
+- EXECUTION LOG: Before each action, log it with status icon (???? planned, ??? in progress, ??? done, ??? failed). Write the step BEFORE executing it.
+- COMPLETION: Once work is complete, update the entry status to Complete and generate .agents/Agent-Journal.html from the markdown.
+- Read .agents/PROJECT_MAP.md and .agents/pipeline.md (if they exist) before starting.
+- Do not ask for permission to journal, just do it automatically.
+

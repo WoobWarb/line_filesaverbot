@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — FileSaverBot</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#09090e;color:#e2e8f0;font-family:'Outfit',system-ui,sans-serif;line-height:1.8}
+  .wrap{max-width:780px;margin:0 auto;padding:60px 24px}
+  .logo{font-size:18px;font-weight:800;background:linear-gradient(135deg,#fff,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:48px;display:inline-block;text-decoration:none}
+  h1{font-size:28px;font-weight:800;margin-bottom:8px}
+  .updated{font-size:13px;color:#64748b;margin-bottom:40px}
+  h2{font-size:16px;font-weight:700;color:#f1f5f9;margin:36px 0 12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.07)}
+  p,li{font-size:14px;color:#94a3b8;margin-bottom:8px}
+  ul{padding-left:20px}
+  li{margin-bottom:4px}
+  a{color:#818cf8}
+  .lang-en {
+    color: #64748b;
+    font-style: italic;
+    display: block;
+    margin-top: 4px;
+    font-size: 13.5px;
+  }
+  .footer{margin-top:60px;padding-top:24px;border-top:1px solid rgba(255,255,255,.07);font-size:13px;color:#475569}
+  .highlight{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:10px;padding:16px 20px;margin:16px 0}
+  .highlight p{margin:0;color:#a5b4fc;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="/" class="logo">FileSaverBot</a>
+
+  <h1>Privacy Policy / นโยบายความเป็นส่วนตัว</h1>
+  <div class="updated">Last updated: May 27, 2026 / อัปเดตล่าสุด: 27 พฤษภาคม 2569</div>
+
+  <div class="highlight">
+    <p>FileSaverBot ให้ความสำคัญกับความเป็นส่วนตัวของผู้ใช้ เราเก็บข้อมูลเท่าที่จำเป็นสำหรับการให้บริการเท่านั้น</p>
+    <p class="lang-en">FileSaverBot values your privacy. We only collect data that is strictly necessary to provide the service.</p>
+  </div>
+
+  <h2>1. ข้อมูลที่เราเก็บรวบรวม / Information We Collect</h2>
+  <ul>
+    <li>
+      <strong>LINE User ID</strong> — เพื่อระบุตัวตนและเชื่อมโยงบัญชีกับ Google Drive
+      <span class="lang-en">— To identify the user and link your account with Google Drive.</span>
+    </li>
+    <li>
+      <strong>Google OAuth Refresh Token</strong> — เพื่อให้บอทสามารถอัปโหลดไฟล์ไปยัง Google Drive ของคุณได้
+      <span class="lang-en">— To enable the bot to upload files to your Google Drive.</span>
+    </li>
+    <li>
+      <strong>Google Drive Folder ID</strong> — โฟลเดอร์ที่คุณเลือกใช้เก็บไฟล์
+      <span class="lang-en">— The specific folder ID chosen to store your uploaded files.</span>
+    </li>
+    <li>
+      <strong>ไฟล์ที่ส่งผ่าน LINE / Files sent via LINE</strong> — เก็บชั่วคราวในระหว่างการอัปโหลด แล้วลบออกจากเซิร์ฟเวอร์ทันที
+      <span class="lang-en">— Temporarily stored during transmission and deleted from our servers immediately after upload.</span>
+    </li>
+    <li>
+      <strong>ข้อมูลการใช้งาน / Usage Data</strong> — จำนวนไฟล์ที่อัปโหลด เพื่อจัดการโควตารายวัน
+      <span class="lang-en">— Upload counts to enforce daily usage limits.</span>
+    </li>
+    <li>
+      <strong>ข้อมูลการชำระเงิน / Payment Information</strong> — เลข transaction reference จากสลิปโอนเงิน เพื่อป้องกันการใช้สลิปซ้ำ (ไม่เก็บข้อมูลบัตรเครดิต)
+      <span class="lang-en">— Transaction reference numbers from transfer slips to prevent reuse (no credit card details are collected or stored).</span>
+    </li>
+  </ul>
+
+  <h2>2. วิธีที่เราใช้ข้อมูล / How We Use Information</h2>
+  <ul>
+    <li>อัปโหลดไฟล์จาก LINE ไปยัง Google Drive ของคุณโดยอัตโนมัติ <span class="lang-en">Automatically upload files from LINE to your Google Drive.</span></li>
+    <li>ตรวจสอบสิทธิ์และโควตาการใช้งานรายวัน <span class="lang-en">Verify user authentication and enforce daily upload quotas.</span></li>
+    <li>ยืนยันการชำระเงินสำหรับบัญชี Premium <span class="lang-en">Confirm payments for Premium upgrades.</span></li>
+    <li>ส่งการแจ้งเตือนสถานะการอัปโหลด <span class="lang-en">Send status notifications regarding your uploads.</span></li>
+  </ul>
+  <p>เราไม่นำข้อมูลของคุณไปใช้เพื่อวัตถุประสงค์อื่น ไม่ขายข้อมูลให้บุคคลที่สาม</p>
+  <p class="lang-en">We do not use your information for other purposes, and we never sell your data to third parties.</p>
+
+  <h2>3. การเข้าถึง Google Drive / Google Drive API Access</h2>
+  <p>FileSaverBot ใช้ Google Drive API เพื่อ: <span class="lang-en">FileSaverBot uses the Google Drive API to:</span></p>
+  <ul>
+    <li>สร้างโฟลเดอร์ <strong>LINE_FileSaver_Bot</strong> ใน Google Drive ของคุณ <span class="lang-en">Create a folder named <strong>LINE_FileSaver_Bot</strong> in your Google Drive.</span></li>
+    <li>อัปโหลดไฟล์ที่ส่งผ่าน LINE เข้าสู่โฟลเดอร์ดังกล่าว <span class="lang-en">Upload files sent through LINE into that folder.</span></li>
+  </ul>
+  <p>บอทจะเข้าถึงเฉพาะไฟล์และโฟลเดอร์ที่สร้างโดยบอทเท่านั้น ไม่สามารถเข้าถึงไฟล์อื่นใน Google Drive ของคุณได้</p>
+  <p class="lang-en">The app only accesses files and folders created by this application. We cannot view or modify any other files in your Google Drive.</p>
+  <p>คุณสามารถยกเลิกการเข้าถึงได้ตลอดเวลาที่ / You can revoke access at any time via: <a href="https://myaccount.google.com/permissions" target="_blank">myaccount.google.com/permissions</a></p>
+
+  <h2>4. การเก็บรักษาและความปลอดภัย / Data Retention and Security</h2>
+  <ul>
+    <li>ข้อมูลถูกเก็บบนเซิร์ฟเวอร์ที่ปลอดภัยด้วยการเข้ารหัส HTTPS <span class="lang-en">All data is transmitted to secure servers using HTTPS encryption.</span></li>
+    <li>ไฟล์ที่อัปโหลดจะถูกลบออกจากเซิร์ฟเวอร์ทันทีหลังอัปโหลดสำเร็จ <span class="lang-en">Uploaded files are immediately deleted from our server upon successful upload.</span></li>
+    <li>เราไม่เก็บเนื้อหาของไฟล์ไว้บนเซิร์ฟเวอร์ถาวร <span class="lang-en">We do not store the content of your files permanently on our server.</span></li>
+    <li>Refresh Token ถูกเก็บในรูปแบบที่เข้ารหัสและใช้เฉพาะเพื่ออัปโหลดไฟล์ <span class="lang-en">Google Refresh Tokens are stored in an encrypted format and used solely for file uploads.</span></li>
+  </ul>
+
+  <h2>5. การแชร์ข้อมูลกับบุคคลที่สาม / Third-Party Sharing</h2>
+  <p>เราใช้บริการของบุคคลที่สามดังนี้: <span class="lang-en">We utilize the following third-party services:</span></p>
+  <ul>
+    <li><strong>Google Drive API</strong> — เพื่อเก็บไฟล์ของคุณ (<a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a>) <span class="lang-en">— To store your files.</span></li>
+    <li><strong>LINE Messaging API</strong> — เพื่อรับไฟล์และส่งข้อความ (<a href="https://line.me/en/terms/policy/" target="_blank">LINE Privacy Policy</a>) <span class="lang-en">— To receive files and send message updates.</span></li>
+    <li><strong>Google Gemini AI</strong> — เพื่อตรวจสอบสลิปโอนเงิน (ไม่เก็บข้อมูลถาวร) <span class="lang-en">— To verify payment slips (no data is stored permanently).</span></li>
+  </ul>
+
+  <h2>6. สิทธิ์ของผู้ใช้ / User Rights</h2>
+  <p>คุณมีสิทธิ์: <span class="lang-en">You have the right to:</span></p>
+  <ul>
+    <li>ขอดูข้อมูลที่เราเก็บเกี่ยวกับคุณ <span class="lang-en">Request access to the personal data we hold about you.</span></li>
+    <li>ขอลบข้อมูลของคุณออกจากระบบ <span class="lang-en">Request the deletion of your personal data from our systems.</span></li>
+    <li>ยกเลิกการเชื่อมต่อ Google Drive ได้ตลอดเวลา <span class="lang-en">Disconnect your Google Drive at any time.</span></li>
+  </ul>
+  <p>ติดต่อเราที่ / Contact us at: <a href="mailto:0deathwolf@gmail.com">0deathwolf@gmail.com</a> เพื่อใช้สิทธิ์ดังกล่าว <span class="lang-en">to exercise these rights.</span></p>
+
+  <h2>7. การเปลี่ยนแปลงนโยบาย / Changes to Policy</h2>
+  <p>หากมีการเปลี่ยนแปลงนโยบายความเป็นส่วนตัว เราจะแจ้งให้ผู้ใช้ทราบผ่าน LINE และอัปเดตวันที่ด้านบน</p>
+  <p class="lang-en">If this Privacy Policy changes, we will notify users through LINE and update the "Last updated" date above.</p>
+
+  <h2>8. ติดต่อเรา / Contact Us</h2>
+  <p>หากมีคำถามเกี่ยวกับนโยบายความเป็นส่วนตัว ติดต่อได้ที่: <span class="lang-en">If you have any questions regarding this Privacy Policy, please contact:</span></p>
+  <ul>
+    <li>Email: <a href="mailto:0deathwolf@gmail.com">0deathwolf@gmail.com</a></li>
+    <li>LINE OA: <a href="https://line.me/R/ti/p/@605pmlbd" target="_blank">@filesaverbot</a></li>
+    <li>Website: <a href="https://filesaver.deathwolftech.site">filesaver.deathwolftech.site</a></li>
+  </ul>
+
+  <div class="footer">
+    © 2026 FileSaverBot · <a href="/">กลับหน้าหลัก / Back to Home</a>
+  </div>
+</div>
+</body>
+</html>

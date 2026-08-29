@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Journal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.07);--text:#e2e8f0;--muted:#64748b;--accent:#818cf8;--green:#22c55e;--yellow:#eab308;--red:#ef4444;--blue:#3b82f6}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh}
+/* ── Landing ── */
+#landing{display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:1.5rem;padding:2rem}
+.drop-area{border:2px dashed rgba(129,140,248,0.35);border-radius:20px;padding:3.5rem 3rem;max-width:480px;width:100%;text-align:center;cursor:pointer;transition:.3s;background:rgba(129,140,248,0.03)}
+.drop-area:hover,.drop-area.over{border-color:var(--accent);background:rgba(129,140,248,0.08);transform:translateY(-3px)}
+.drop-area h1{font-size:1.6rem;font-weight:800;background:linear-gradient(135deg,#818cf8,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:.75rem 0 .5rem}
+.drop-area p{color:var(--muted);font-size:.9rem;line-height:1.6;margin-bottom:1.25rem}
+.chip{background:rgba(129,140,248,0.15);color:#818cf8;padding:.1rem .45rem;border-radius:4px;font-family:'Fira Code',monospace;font-size:.85em}
+.open-btn{background:linear-gradient(135deg,#818cf8,#a78bfa);color:#fff;border:none;padding:.7rem 1.75rem;border-radius:50px;font-size:.95rem;font-weight:600;cursor:pointer;transition:.2s;font-family:'Inter',sans-serif}
+.open-btn:hover{opacity:.85;transform:translateY(-1px)}
+.hint{color:var(--muted);font-size:.8rem;opacity:.7}
+#file-input{display:none}
+/* ── Standalone badge ── */
+.standalone-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.2);padding:.25rem .75rem;border-radius:50px;font-size:.72rem;font-weight:600;letter-spacing:.03em}
+.standalone-badge::before{content:'●';animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+/* ── App ── */
+#app{display:none;min-height:100vh}
+.top-bar{background:rgba(10,10,15,0.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:1rem 1.5rem;position:sticky;top:0;z-index:10}
+.bar-row1{display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem;flex-wrap:wrap;gap:.5rem}
+.proj{font-size:1.25rem;font-weight:800;background:linear-gradient(135deg,#818cf8,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.back-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:.3rem .9rem;border-radius:50px;font-size:.78rem;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s}
+.back-btn:hover{border-color:var(--accent);color:var(--accent)}
+.stats{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:.9rem}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.55rem 1rem;text-align:center;min-width:80px}
+.stat b{display:block;font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#818cf8,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat span{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.filters{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
+.pill{background:none;border:1px solid var(--border);color:var(--muted);padding:.25rem .75rem;border-radius:50px;font-size:.75rem;cursor:pointer;font-family:'Inter',sans-serif;transition:.2s}
+.pill:hover,.pill.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.srch{background:var(--card);border:1px solid var(--border);color:var(--text);padding:.3rem .9rem;border-radius:50px;font-size:.78rem;font-family:'Inter',sans-serif;outline:none;width:200px;transition:.2s}
+.srch:focus{border-color:var(--accent)}
+/* ── Cards ── */
+.list{padding:1.5rem;max-width:820px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:.75rem;overflow:hidden;transition:.25s}
+.card:hover{border-color:rgba(129,140,248,.28);transform:translateY(-2px)}
+.card.c-complete{border-left:3px solid var(--green)}
+.card.c-partial{border-left:3px solid var(--yellow)}
+.card.c-failed{border-left:3px solid var(--red)}
+.card.c-in-progress{border-left:3px solid var(--blue)}
+.ch{padding:1rem 1.25rem;cursor:pointer;display:flex;gap:.85rem;align-items:flex-start}
+.dc{background:rgba(129,140,248,.12);color:var(--accent);padding:.15rem .55rem;border-radius:5px;font-size:.7rem;font-family:'Fira Code',monospace;white-space:nowrap;margin-top:.1rem}
+.ci{flex:1;min-width:0}
+.ct{font-size:.95rem;font-weight:600;margin-bottom:.35rem}
+.tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.35rem}
+.tag{padding:.12rem .5rem;border-radius:50px;font-size:.67rem;font-weight:500}
+.t-complete{background:rgba(34,197,94,.12);color:var(--green)}
+.t-partial{background:rgba(234,179,8,.12);color:var(--yellow)}
+.t-failed{background:rgba(239,68,68,.12);color:var(--red)}
+.t-in-progress{background:rgba(59,130,246,.12);color:var(--blue)}
+.t-type{background:rgba(129,140,248,.12);color:var(--accent)}
+.t-high{background:rgba(239,68,68,.08);color:var(--red)}
+.t-medium{background:rgba(234,179,8,.08);color:var(--yellow)}
+.t-low{background:rgba(34,197,94,.08);color:var(--green)}
+.tl{color:var(--muted);font-size:.8rem;font-style:italic;line-height:1.5}
+.pbar{background:rgba(255,255,255,.04);border-radius:4px;height:3px;margin-top:.5rem;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,#818cf8,#a78bfa);border-radius:4px}
+.arr{color:var(--muted);font-size:.8rem;flex-shrink:0;transition:.25s;padding-top:.1rem}
+.cb{display:none;padding:0 1.25rem 1.25rem;border-top:1px solid var(--border)}
+.open .cb{display:block}
+.open .arr{transform:rotate(180deg)}
+.sec{margin-top:.9rem}
+.stitle{font-size:.68rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;opacity:.8}
+.sc{font-size:.82rem;line-height:1.7;color:var(--muted)}
+.tdone{color:var(--green);margin:.15rem 0}
+.tpend{color:var(--muted);margin:.15rem 0}
+.tprog{color:var(--blue);margin:.15rem 0}
+.bq{border-left:2px solid var(--accent);padding-left:.65rem;color:var(--text);margin:.25rem 0}
+.fc{background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:4px;padding:.08rem .4rem;font-family:'Fira Code',monospace;font-size:.72rem;color:var(--muted);display:inline-block;margin:.1rem}
+.ic{background:rgba(129,140,248,.12);color:#818cf8;padding:.05rem .3rem;border-radius:3px;font-family:'Fira Code',monospace;font-size:.85em}
+.empty{text-align:center;padding:4rem;color:var(--muted)}
+.fa{animation:fi .35s ease both}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div id="landing">
+  <div class="drop-area" id="da">
+    <div style="font-size:3rem">📓</div>
+    <h1>Agent Journal</h1>
+    <p>Open your <span class="chip">Agent-Journal.md</span><br>to view the dashboard</p>
+    <button class="open-btn" id="ob">📂 Open Journal File</button>
+  </div>
+  <div class="hint">Or drag &amp; drop the file above</div>
+  <input type="file" id="file-input" accept=".md,.txt">
+</div>
+
+<div id="app">
+  <div class="top-bar">
+    <div class="bar-row1">
+      <div class="proj" id="proj">📓 Agent Journal</div>
+      <div style="display:flex;gap:.5rem;align-items:center">
+        <span id="standalone-indicator" style="display:none" class="standalone-badge">Live</span>
+        <button class="back-btn" id="bb">↩ Load Another</button>
+      </div>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="filters" id="pills">
+      <button class="pill on" data-f="all">All</button>
+      <button class="pill" data-f="complete">✅ Complete</button>
+      <button class="pill" data-f="partial">⚠️ Partial</button>
+      <button class="pill" data-f="in-progress">🔄 In Progress</button>
+      <button class="pill" data-f="failed">❌ Failed</button>
+      <button class="pill" data-f="high">🔴 High Impact</button>
+      <input class="srch" id="srch" placeholder="Search…">
+    </div>
+  </div>
+  <div class="list" id="list"></div>
+</div>
+
+<script>
+// ── JOURNAL_DATA is injected here by the agent for standalone mode ──
+window.JOURNAL_DATA = `# Agent Journal Skill
+
+**"The human-readable diary of your AI agent's work."**
+
+---
+
+## ðŸ“Œ How to Use
+
+Put this to other project's root directory and run it:
+
+iwr -useb https://raw.githubusercontent.com/WoobWarb/agent-journal/main/install.ps1 | iex
+
+
+Tell your AI agent:
+> *"Use the Agent Journal format to document our work in \`.agents/Agent-Journal.md\`"*
+
+**ðŸ¤– Note to AI Agents:** 
+If a \`.agents/PROJECT_MAP.md\` file exists in this repository, **you must read it first** to understand the architecture and file structure before executing commands, grepping, or making assumptions.
+
+The agent will maintain a clean, chronological log of every session â€” structured so **humans** can actually read and understand what happened.
+
+---
+
+## ðŸ“ Journal Format
+
+Every journal file starts with a **Project Header**, followed by individual **Session Entries**.
+
+### Project Header (Top of File)
+
+\`\`\`markdown
+# ðŸ““ Agent Journal â€” [Project Name]
+> **Created:** YYYY-MM-DD | **Last Updated:** YYYY-MM-DD | **Sessions:** N
+\`\`\`
+
+---
+
+### Session Entry (One Per Work Session)
+
+Use the **Full Format** for significant work, or the **Mini Format** for quick fixes.
+
+---
+
+#### âœ… Full Format
+
+\`\`\`markdown
+---
+## [YYYY-MM-DD] | Short Title of Work Done
+**Status:** âœ… Complete | âš ï¸ Partial | âŒ Failed | ðŸ”„ In Progress
+**Type:** ðŸš€ Feature | ðŸ› Bug Fix | ðŸŽ¨ UI/UX | ðŸ”§ Refactor | ðŸ“¦ Setup | ðŸ“„ Docs
+**Impact:** ðŸ”´ High | ðŸŸ¡ Medium | ðŸŸ¢ Low
+
+### TL;DR
+> One or two sentences summarizing what was accomplished and why.
+
+### ðŸ“ Planned Actions
+- [x] Completed task description
+- [x] Another completed task
+- [ ] â³ Pending task for next session
+
+### ðŸ”¨ Execution Log
+> Log every step BEFORE doing it. Update status AFTER. This ensures no work is lost if tokens run out.
+
+1. âœ… \`Created path/to/file1.js\` â€” What was done and why
+2. âœ… \`Modified path/to/file2.js\` â€” What changed
+3. â³ \`Working on path/to/file3.js\` â€” Current step (in progress)
+4. ðŸ”² \`Create path/to/file4.js\` â€” Not started yet
+5. ðŸ”² \`Update config\` â€” Not started yet
+
+> **Icons:** ðŸ”² Planned | â³ In Progress | âœ… Done | âŒ Failed
+
+### ðŸ¤” Decisions
+- Chose X over Y because [reason]
+- Used [library/approach] because [trade-off explanation]
+
+### âš ï¸ Risks & Blockers
+- [Blocker] Description of what's blocking progress
+- [Risk] Something that could cause issues later
+
+### ðŸ“‚ Files Changed
+- \`path/to/file1.js\` â€” Brief description of change
+- \`path/to/file2.css\` â€” Brief description of change
+
+### ðŸ’¡ Notes
+- Additional context, gotchas, or reminders for next session
+
+### ðŸ”„ Handoff Note (if interrupted)
+> Write this when tokens are running low or switching to another AI.
+
+**Last completed step:** N of M
+**Resume from:** Step N+1 â€” description
+**Current state:** What works, what doesn't
+**Important context:** Anything the next AI must know
+\`\`\`
+
+---
+
+#### âš¡ Mini Format (for quick fixes)
+
+\`\`\`markdown
+---
+## [YYYY-MM-DD] | Quick Fix Title
+**Status:** âœ… Complete | **Type:** ðŸ› Bug Fix | **Impact:** ðŸŸ¢ Low
+
+- [x] Fixed [issue] in \`path/to/file\`
+- ðŸ’¡ [Optional note]
+\`\`\`
+
+---
+
+## ðŸŽ¯ Status Reference
+
+| Emoji | Status | When to Use |
+|-------|--------|-------------|
+| âœ… | Complete | All goals achieved |
+| âš ï¸ | Partial | Some tasks done, others remaining |
+| âŒ | Failed | Blocked or reverted |
+| ðŸ”„ | In Progress | Work started but not finished |
+
+## ðŸ“¦ Type Reference
+
+| Emoji | Type | Description |
+|-------|------|-------------|
+| ðŸš€ | Feature | New functionality |
+| ðŸ› | Bug Fix | Error correction |
+| ðŸŽ¨ | UI/UX | Visual / experience changes |
+| ðŸ”§ | Refactor | Code restructuring |
+| ðŸ“¦ | Setup | Project configuration |
+| ðŸ“„ | Docs | Documentation updates |
+
+---
+
+## ðŸ’¡ Tips for Best Results
+
+1. **Be specific** â€” Include file paths in action items
+2. **Explain "Why"** â€” The Decisions section is the most valuable part
+3. **Flag risks early** â€” Blockers section prevents forgotten issues
+4. **Use Mini Format** â€” Don't over-document trivial fixes
+5. **Keep TL;DR short** â€” If someone reads only one line, make it count
+6. **Log before you do** â€” Write each execution step BEFORE executing it, so nothing is lost if tokens run out
+7. **Write handoff notes** â€” When tokens are low or switching AI, write a Handoff Note with resume point and context
+
+---
+## [YYYY-MM-DD] | Short Title of Work Done
+**Status:** โ… Complete | โ ๏ธ Partial | โ Failed | ๐” In Progress
+**Type:** ๐€ Feature | ๐ Bug Fix | ๐จ UI/UX | ๐”ง Refactor | ๐“ฆ Setup | ๐“ Docs
+**Impact:** ๐”ด High | ๐ก Medium | ๐ข Low
+
+### TL;DR
+> One or two sentences summarizing what was accomplished and why.
+
+### ๐“ Planned Actions
+- [x] Completed task description
+- [x] Another completed task
+- [ ] โณ Pending task for next session
+
+### ๐”จ Execution Log
+> Log every step BEFORE doing it. Update status AFTER. This ensures no work is lost if tokens run out.
+
+1. โ… \`Created path/to/file1.js\` โ€” What was done and why
+2. โ… \`Modified path/to/file2.js\` โ€” What changed
+3. โณ \`Working on path/to/file3.js\` โ€” Current step (in progress)
+4. ๐”ฒ \`Create path/to/file4.js\` โ€” Not started yet
+5. ๐”ฒ \`Update config\` โ€” Not started yet
+
+> **Icons:** ๐”ฒ Planned | โณ In Progress | โ… Done | โ Failed
+
+### ๐ค” Decisions
+- Chose X over Y because [reason]
+- Used [library/approach] because [trade-off explanation]
+
+### โ ๏ธ Risks & Blockers
+- [Blocker] Description of what's blocking progress
+- [Risk] Something that could cause issues later
+
+### ๐“ Files Changed
+- \`path/to/file1.js\` โ€” Brief description of change
+- \`path/to/file2.css\` โ€” Brief description of change
+
+### ๐’ก Notes
+- Additional context, gotchas, or reminders for next session
+
+### ๐” Handoff Note (if interrupted)
+> Write this when tokens are running low or switching to another AI.
+
+**Last completed step:** N of M
+**Resume from:** Step N+1 โ€” description
+**Current state:** What works, what doesn't
+**Important context:** Anything the next AI must know
+\`\`\`
+
+---
+
+#### โก Mini Format (for quick fixes)
+
+\`\`\`markdown
+---
+## [YYYY-MM-DD] | Quick Fix Title
+**Status:** โ… Complete | **Type:** ๐ Bug Fix | **Impact:** ๐ข Low
+
+- [x] Fixed [issue] in \`path/to/file\`
+- ๐’ก [Optional note]
+\`\`\`
+
+---
+
+## ๐ฏ Status Reference
+
+| Emoji | Status | When to Use |
+|-------|--------|-------------|
+| โ… | Complete | All goals achieved |
+| โ ๏ธ | Partial | Some tasks done, others remaining |
+| โ | Failed | Blocked or reverted |
+| ๐” | In Progress | Work started but not finished |
+
+## ๐“ฆ Type Reference
+
+| Emoji | Type | Description |
+|-------|------|-------------|
+| ๐€ | Feature | New functionality |
+| ๐ | Bug Fix | Error correction |
+| ๐จ | UI/UX | Visual / experience changes |
+| ๐”ง | Refactor | Code restructuring |
+| ๐“ฆ | Setup | Project configuration |
+| ๐“ | Docs | Documentation updates |
+
+---
+
+## ๐’ก Tips for Best Results
+
+1. **Be specific** โ€” Include file paths in action items
+2. **Explain "Why"** โ€” The Decisions section is the most valuable part
+3. **Flag risks early** โ€” Blockers section prevents forgotten issues
+4. **Use Mini Format** โ€” Don't over-document trivial fixes
+5. **Keep TL;DR short** โ€” If someone reads only one line, make it count
+6. **Log before you do** โ€” Write each execution step BEFORE executing it, so nothing is lost if tokens run out
+7. **Write handoff notes** โ€” When tokens are low or switching AI, write a Handoff Note with resume point and context
+
+---
+
+## [2026-05-26] | Migrated SaaS Bot Domain and Configured New LINE Channel
+- โ… Complete | ๐€ Feature | ๐”ด High Impact
+
+### TL;DR
+> Migrated SaaS bot to filesaver.deathwolftech.site, configured Nginx reverse proxy on port 5020, set up new LINE channel credentials for VPS.
+
+### Actions
+- [x] Set up Nginx reverse proxy config
+- [x] Configure new LINE channel on VPS
+- [x] Update BASE_URL and webhook URL
+- [x] Test bot connectivity
+
+### Files Changed
+- \`filesaver_bot.py\` โ€” Production-ready SaaS core
+- \`deploy/nginx.conf\` โ€” Nginx config template
+- \`deploy/filesaverbot.service\` โ€” Linux startup script
+
+---
+
+## [2026-05-27] | SEO, GA4, Search Console, Admin Visitor Tracking
+- โ… Complete | ๐€ Feature | ๐”ด High Impact
+
+### TL;DR
+> Full SEO (meta, OG, JSON-LD), GA4 (G-LNMX8FQL0D), Search Console verification, sitemap.xml, robots.txt. Added page_views table and visitor stats chart in admin dashboard.
+
+### Actions
+- [x] Add full SEO meta tags, OG, Twitter Card, JSON-LD
+- [x] Add GA4 tracking
+- [x] Add Search Console verification route
+- [x] Create /robots.txt and /sitemap.xml routes
+- [x] Add page_views table and tracking
+- [x] Show visitor stats in admin dashboard
+
+### Files Changed
+- \`filesaver_bot.py\` โ€” page_views table, new routes
+- \`templates/index.html\` โ€” Full SEO, GA4, JSON-LD
+- \`templates/admin_dashboard.html\` โ€” Visitor stats and trend chart
+
+---
+
+## [2026-05-27] | Privacy Policy, Terms of Service, Google OAuth Verification
+- โ… Complete | ๐“ฆ Setup | ๐”ด High Impact
+
+### TL;DR
+> Bilingual (TH/EN) Privacy Policy and Terms pages. Submitted Google OAuth verification with drive.file scope. Fixed LINE OA ID to @605pmlbd.
+
+### Actions
+- [x] Create templates/privacy.html
+- [x] Create templates/terms.html
+- [x] Add /privacy and /terms routes
+- [x] Resize logo to 120x120 for OAuth consent screen
+- [x] Submit Google OAuth app verification
+- [x] Fix LINE OA ID to @605pmlbd
+
+### Files Changed
+- \`templates/privacy.html\` โ€” Bilingual privacy policy
+- \`templates/terms.html\` โ€” Bilingual terms of service
+- \`filesaver_bot.py\` โ€” /privacy and /terms routes
+
+---
+
+## [2026-05-27] | Pi Bot Fix, VPS Group Leave Investigation
+- โ… Complete | ๐ Bug Fix | ๐ก Medium Impact
+
+### TL;DR
+> Fixed Pi crash-loop (missing qrcode + promptpay modules). Diagnosed VPS bot leaving groups as LINE's 1-bot-per-group rule. Added website warning.
+
+### Actions
+- [x] Install qrcode[pil] on Pi venv
+- [x] Copy promptpay.py to Pi
+- [x] Diagnose group leave โ€” LINE 1 OA per group limit
+- [x] Add warning in website feature card
+
+### Files Changed
+- \`templates/index.html\` โ€” Bot limitation warning
+- \`/home/nctlite/filesaverbot/promptpay.py\` โ€” Copied from VPS
+
+---
+
+## [2026-05-28] | Payment Audit, Free 7-day Reconnect Model, Website Cleanup
+- โ… Complete | ๐€ Feature | ๐”ด High Impact
+
+### TL;DR
+> Payment audit: all systems green. Changed Free tier: own Google Drive but must reconnect every 7 days; Premium = no reconnect needed. Fixed /buy (was old SDK, now reply_flex_raw). Removed broken homepage button. Added Journal auto-poll.
+
+### Actions
+- [x] Audit VPS bot โ€” active, PROMPTPAY_ID correct
+- [x] Confirm /buy uses reply_flex_raw (old error was prior deploy)
+- [x] Add drive_connected_at column to tenant_config
+- [x] Auto-revoke Drive when 7-day window expires
+- [x] Show days remaining in /เธชเธ–เธฒเธเธฐ command
+- [x] Update Free tier card on website
+- [x] Remove broken /auth?state=landing button
+- [x] Fix CSS vendor prefix warnings
+- [x] Add File System Access API 30s auto-poll to Agent-Journal.html
+
+### Files Changed
+- \`filesaver_bot.py\` โ€” drive_connected_at, trial check, revoke logic, status command
+- \`templates/index.html\` โ€” Free tier card, remove button, CSS fix
+- \`.agents/Agent-Journal.html\` โ€” FSA polling added
+- \`.agents/Agent-Journal.md\` โ€” Created as live journal file
+
+
+---
+
+## [2026-05-28] | Pi Bot ngrok Fix, VVIP Tier, /uid Command
+- ✅ Complete | 🐛 Bug Fix | 🟡 Medium Impact
+
+### TL;DR
+> Fixed Pi bot not responding — ngrok was pointing to port 5002 but bot runs on 5020. Fixed permanently in ngrok.service. Added VVIP tier, /uid command, set owner as VVIP in Pi DB.
+
+### Actions
+- [x] Diagnose Pi silent — ngrok 5002 vs bot 5020 mismatch
+- [x] Fix ngrok.service ExecStart port permanently (5002 → 5020)
+- [x] Add VVIP tier — never expires, sees IP in /สถานะ
+- [x] Add /approve <id> vvip command
+- [x] Add /uid command
+- [x] Set owner as VVIP + admin in Pi DB
+
+### Files Changed
+- \`filesaver_bot.py\` — VVIP tier, /uid, /approve vvip
+- \`/etc/systemd/system/ngrok.service\` — port 5002 → 5020
+
+---
+
+## [2026-05-31] | Google OAuth Approved, Conversion Fixes, Trust Messaging
+- ✅ Complete | 🚀 Feature | 🔴 High Impact
+
+### TL;DR
+> Google OAuth approved (4 days). Added LINE QR code to hero. Trust banner + security card with human copy. Fixed pricing button alignment. Free reconnect 7 → 30 days. Rebuilt journal-viewer.html as general MD viewer.
+
+### Actions
+- [x] Google OAuth verified — "Your branding has been verified"
+- [x] Add LINE QR code to hero section (@605pmlbd)
+- [x] Fix btn links from @your_bot_id to @605pmlbd
+- [x] Add trust banner: ไฟล์อยู่ที่ Drive คุณ ไม่มีใครดูได้นอกจากคุณอนุญาต
+- [x] Replace confusing stats with 3 readable bullets (ไม่ผ่าน/ไม่เก็บไม่ดูไม่ขาย/ยกเลิกได้)
+- [x] Fix pricing card button alignment (flex + flex:1)
+- [x] FREE_TRIAL_DAYS 7 → 30
+- [x] Rebuild journal-viewer.html as general MD viewer with FSA poll
+
+### Files Changed
+- \`templates/index.html\` — QR code, trust banner, card alignment, 30-day copy
+- \`filesaver_bot.py\` — FREE_TRIAL_DAYS = 30
+- \`.agents/journal-viewer.html\` — Full rewrite as general MD viewer
+
+---
+
+## [2026-05-31] | Conversion Fixes — Broken Links, Auth UX, Copy, Social Proof, Sticky CTA
+**Status:** ✅ Complete
+**Type:** 🎨 UI/UX
+**Impact:** 🔴 High
+
+### TL;DR
+> แก้ทุก friction point ใน conversion funnel: broken links, auth ภาษาอังกฤษ, free tier copy สับสน, ไม่มี social proof, ไม่มี sticky CTA
+
+### 📝 Planned Actions
+- [x] วิเคราะห์ปัญหา conversion
+- [x] แก้ \`@your_bot_id\` → \`@605pmlbd\` ใน pricing buttons
+- [x] เพิ่ม social proof (stars bar + testimonials section)
+- [x] แก้ free tier copy ให้ชัดขึ้น + เพิ่ม pricing note
+- [x] เพิ่ม floating sticky CTA button
+- [x] แก้ auth.html เป็นภาษาไทย + ลด friction
+
+### 🔨 Execution Log
+1. ✅ อ่าน \`templates/index.html\` + \`templates/auth.html\` — วิเคราะห์ครบ
+2. ✅ แก้ \`templates/index.html\` — ลิงก์ pricing ทุกปุ่ม, social proof bar, testimonials, sticky CTA, free copy, ปุ่ม "ดูราคา" ใน hero
+3. ✅ แก้ \`templates/auth.html\` — ภาษาไทยทั้งหมด, permission list, loading state แทน opacity flash, error banner, trust row
+
+### 🤔 Decisions
+- Sticky CTA ซ่อนจนกว่า hero button จะ scroll พ้น viewport — ไม่รบกวนผู้ใช้ที่เพิ่งเข้า
+- Permission list ใน auth.html บอกชัดว่า "เข้าถึงแค่ไฟล์ที่บอทสร้างเอง" ลด paranoia เรื่อง privacy
+- Testimonials ใช้ชื่อจริง + role แทน generic quote เพิ่ม credibility
+- **(New)** ย้าย "AI สรุปแชทสัปดาห์" ไปเป็นฟีเจอร์เฉพาะของ Premium / VVIP เท่านั้น เพื่อเป็นจุดขายให้คนซื้อ (Upsell) และแก้โค้ด weekly_summary.py ให้ข้าม Free Tier จะได้ไม่เสีย Token ของ Gemini เปล่าๆ
+
+### 📂 Files Changed
+- \`templates/index.html\` — pricing links @605pmlbd, social proof bar, testimonials, sticky CTA, free tier note, hero secondary CTA, premium AI summary feature text
+- \`templates/auth.html\` — Thai UI, permission list, loading state, error banner, trust indicators
+- \`weekly_summary.py\` — added \`is_premium\` check to only process AI summary for Premium/VVIP users
+
+---
+
+## [2026-08-29] | Switch VPS Bot to 100% Free & Unlimited, Remove AI Summary from VPS (v2.0.0)
+**Status:** ✅ Complete
+**Type:** 🚀 Feature
+**Impact:** 🔴 High
+
+### TL;DR
+> ปรับบอทบน VPS ให้ใช้งานฟรี 100% แบบไม่จำกัด (Unlimited uploads, Drive ไม่หมดอายุ, AI Auto-Rename ฟรีทุกคน) และตัดฟีเจอร์ AI สรุปแชทออกจาก VPS ให้รันเฉพาะบน Raspberry Pi พร้อมอัปเดตหน้าเว็บ Landing Page และเตรียม Git Push สู่ Repository
+
+### 📝 Planned Actions
+- [x] แก้ไข \`filesaver_bot.py\` ให้เป็น Free Unlimited (ยกเลิกจำกัด 5 ไฟล์/วัน, Drive ไม่มีวันหมดอายุ, เปิด AI Auto-Rename ให้ทุกคน)
+- [x] ตัดฟีเจอร์ \`#สรุปแชท\` ออกจากบอทบน VPS (แจ้งว่าเปิดใช้เฉพาะบน Pi / เซิร์ฟเวอร์ภายใน)
+- [x] อัปเดตข้อความคำสั่ง \`/status\`, \`/buy\`, Greeting/Follow event ให้เป็นรูปแบบบริการฟรีทั้งหมด
+- [x] อัปเดตหน้าเว็บ \`templates/index.html\` เป็น v2.0 FREE Unlimited Edition
+- [x] อัปเดตสคริปต์ Deploy VPS และอัปโหลดโค้ดใหม่ขึ้น VPS
+- [x] ตรวจสอบว่า \`weekly_summary.py\` และ cron สรุปแชทถูกลบออกจาก VPS เรียบร้อย
+- [x] Restart service และตรวจสอบ Live log & MD5 hash บน VPS ว่าตรงกัน 100%
+- [x] ตั้งค่า Git Repository และ Push ขึ้น \`https://github.com/WoobWarb/line_filesaverbot\`
+
+### 🔨 Execution Log
+1. ✅ \`Modified filesaver_bot.py\` — ปรับให้ Free Unlimited, ตัด AI สรุปแชท, อัปเดตสถานะและคำสั่ง
+2. ✅ \`Modified templates/index.html\` — ปรับหน้าเว็บเป็น v2.0 100% Free Edition พร้อม SEO/Schema.org
+3. ✅ \`Created .gitignore\` — ป้องกันการ commit secret keys, databases, large archives, logs
+4. ✅ \`Updated scratch/vps/deploy_vps.py\` — ตั้งค่า SSH key และคำสั่ง deploy
+5. ✅ \`Deployed to VPS 178.128.59.217\` — อัปโหลดโค้ดและ restart filesaverbot.service
+6. ✅ \`Verified VPS status & MD5 hash\` — ตรวจสอบ service active และ hash ตรงกับเครื่อง local 100%
+7. ✅ \`Pushed to GitHub\` — commit และ push ขึ้น repository
+
+### 🤔 Decisions
+- ให้ VPS ทำหน้าที่เป็น File Saver Bot สาธารณะที่ใช้งานฟรี 100% เชื่อมต่อ Google Drive ส่วนตัวได้ตลอดชีพโดยไม่ต้องจ่ายเงิน
+- ตัด AI สรุปแชทออกจาก VPS เพื่อประหยัด Token และให้ฟีเจอร์สรุปแชทอยู่เฉพาะใน Raspberry Pi สำหรับกลุ่มภายใน
+- เวอร์ชั่นระบบปัจจุบัน: **v2.0.0 (Free Unlimited Edition)**
+
+### 📂 Files Changed
+- \`filesaver_bot.py\` — ปลดล็อค Free Unlimited, ตัดสรุปแชท, ปรับข้อความ
+- \`templates/index.html\` — หน้าเว็บ v2.0 Free Unlimited Edition
+- \`scratch/vps/deploy_vps.py\` — สคริปต์ deploy VPS รวดเร็วและแม่นยำ
+- \`.gitignore\` — กำหนดรายการไฟล์ที่ไม่ต้องการ commit
+---
+
+
+
+`;
+
+var sessions=[], filter='all', isStandalone=false;
+var da=document.getElementById('da'), fi=document.getElementById('file-input');
+document.getElementById('ob').onclick=function(){fi.click()};
+document.getElementById('bb').onclick=reset;
+fi.onchange=function(e){if(e.target.files[0])load(e.target.files[0])};
+da.ondragover=function(e){e.preventDefault();da.classList.add('over')};
+da.ondragleave=function(){da.classList.remove('over')};
+da.ondrop=function(e){e.preventDefault();da.classList.remove('over');var f=e.dataTransfer.files[0];if(f)load(f)};
+document.getElementById('pills').onclick=function(e){
+  var b=e.target.closest('[data-f]');if(!b)return;
+  filter=b.dataset.f;
+  document.querySelectorAll('[data-f]').forEach(function(x){x.classList.toggle('on',x===b)});
+  render();
+};
+document.getElementById('srch').oninput=render;
+
+// ── Standalone mode: auto-load if JOURNAL_DATA is present ──
+window.addEventListener('DOMContentLoaded', function() {
+  if (typeof window.JOURNAL_DATA === 'string' && window.JOURNAL_DATA.trim().length > 0) {
+    isStandalone = true;
+    init(window.JOURNAL_DATA);
+    document.getElementById('standalone-indicator').style.display = 'inline-flex';
+    // Hide "Load Another" button in standalone mode — back to what?
+    document.getElementById('bb').style.display = 'none';
+  }
+});
+
+function load(f){var r=new FileReader();r.onload=function(e){init(e.target.result)};r.readAsText(f)}
+
+function init(md){
+  var p=parse(md);sessions=p.sessions;
+  document.getElementById('proj').textContent='📓 '+p.name;
+  renderStats();render();
+  document.getElementById('landing').style.display='none';
+  document.getElementById('app').style.display='block';
+}
+
+function parse(md){
+  var name='Agent Journal';
+  md.split('\n').slice(0,6).forEach(function(l){
+    if(l.startsWith('# ')){var n=l.replace(/^#\s+📓?\s*Agent Journal\s*[—\-]?\s*/,'').trim();if(n)name=n;}
+  });
+  var chunks=md.split(/\n---\n/), items=[];
+  for(var i=1;i<chunks.length;i++){var s=parseS(chunks[i].trim());if(s)items.push(s);}
+  return{name:name,sessions:items};
+}
+
+function parseS(chunk){
+  var lines=chunk.split('\n'), hi=-1;
+  for(var i=0;i<lines.length;i++){if(/^##\s+\[/.test(lines[i])){hi=i;break;}}
+  if(hi<0)return null;
+  var m=lines[hi].match(/^##\s+\[(\d{4}-\d{2}-\d{2})\]\s*\|\s*(.+)$/);
+  if(!m)return null;
+  var date=m[1],title=m[2].trim(),status='',type='',impact='',tldr='',tt=0,td=0,fc=0;
+  var secs={},cur=null,buf=[];
+  function pick(l,map){for(var k in map){if(l.includes(k))return map[k];}return'';}
+  for(var i=hi+1;i<lines.length;i++){
+    var l=lines[i];
+    if(/^###\s+/.test(l)){if(cur)secs[cur]=buf.join('\n').trim();cur=l.replace(/^###\s+/,'').trim();buf=[];}
+    else if(cur){buf.push(l);}
+    else{
+      if(!status)status=pick(l,{'✅ Complete':'complete','⚠️ Partial':'partial','❌ Failed':'failed','🔄 In Progress':'in-progress','✅':'complete','⚠️':'partial','❌':'failed','🔄':'in-progress'});
+      if(!type)type=pick(l,{'🚀':'feature','🐛':'bug-fix','🎨':'ui-ux','🔧':'refactor','📦':'setup','📄':'docs'});
+      if(!impact)impact=pick(l,{'🔴':'high','🟡':'medium','🟢':'low'});
+    }
+  }
+  if(cur)secs[cur]=buf.join('\n').trim();
+  var tk=Object.keys(secs).find(function(k){return k.includes('TL;DR')});
+  if(tk)tldr=secs[tk].replace(/^>\s*/gm,'').trim();
+  var ak=Object.keys(secs).find(function(k){return/actions|planned/i.test(k)});
+  if(ak)secs[ak].split('\n').forEach(function(l){if(/^\s*-\s*\[/.test(l)){tt++;if(/^\s*-\s*\[x\]/i.test(l))td++;}});
+  var fk=Object.keys(secs).find(function(k){return/files changed/i.test(k)});
+  if(fk)fc=secs[fk].split('\n').filter(function(l){return l.trim().startsWith('-')}).length;
+  return{date:date,title:title,status:status,type:type,impact:impact,tldr:tldr,tt:tt,td:td,fc:fc,secs:secs};
+}
+
+function renderStats(){
+  var t=sessions.length,d=sessions.filter(function(s){return s.status==='complete'}).length;
+  var h=sessions.filter(function(s){return s.impact==='high'}).length;
+  var p=t?Math.round(d/t*100):0;
+  document.getElementById('stats').innerHTML=
+    stat(t,'Sessions')+stat(p+'%','Complete')+stat(d,'Done')+stat(h,'High Impact');
+}
+function stat(v,l){return'<div class="stat"><b>'+v+'</b><span>'+l+'</span></div>';}
+
+function render(){
+  var q=document.getElementById('srch').value.toLowerCase();
+  var list=sessions.slice().reverse();
+  if(filter==='high')list=list.filter(function(s){return s.impact==='high'});
+  else if(filter!=='all')list=list.filter(function(s){return s.status===filter});
+  if(q)list=list.filter(function(s){return s.title.toLowerCase().includes(q)||s.tldr.toLowerCase().includes(q)});
+  var el=document.getElementById('list');
+  if(!list.length){el.innerHTML='<div class="empty">No sessions found 🔍</div>';return;}
+  el.innerHTML=list.map(function(s,i){return card(s,i)}).join('');
+}
+
+var SL={'complete':'✅ Complete','partial':'⚠️ Partial','failed':'❌ Failed','in-progress':'🔄 In Progress'};
+var TL={'feature':'🚀 Feature','bug-fix':'🐛 Bug Fix','ui-ux':'🎨 UI/UX','refactor':'🔧 Refactor','setup':'📦 Setup','docs':'📄 Docs'};
+var IL={'high':'🔴 High','medium':'🟡 Medium','low':'🟢 Low'};
+
+function card(s,i){
+  var pct=s.tt?Math.round(s.td/s.tt*100):-1;
+  var body=Object.entries(s.secs).map(function(e){return sec(e[0],e[1])}).join('');
+  return '<div class="card c-'+s.status+' fa" style="animation-delay:'+i*0.04+'s">'+
+    '<div class="ch" onclick="tog(this.parentElement)">'+
+      '<div><div class="dc">'+s.date+'</div>'+(s.fc?'<div style="color:var(--muted);font-size:.65rem;text-align:center;margin-top:.3rem">📂 '+s.fc+'</div>':'')+'</div>'+
+      '<div class="ci">'+
+        '<div class="ct">'+esc(s.title)+'</div>'+
+        '<div class="tags">'+
+          (s.status?'<span class="tag t-'+s.status+'">'+(SL[s.status]||s.status)+'</span>':'')+
+          (s.type?'<span class="tag t-type">'+(TL[s.type]||s.type)+'</span>':'')+
+          (s.impact?'<span class="tag t-'+s.impact+'">'+(IL[s.impact]||s.impact)+'</span>':'')+
+        '</div>'+
+        (s.tldr?'<div class="tl">'+esc(s.tldr)+'</div>':'')+
+        (pct>=0?'<div class="pbar"><div class="pfill" style="width:'+pct+'%"></div></div>':'')+
+      '</div>'+
+      '<div class="arr">▼</div>'+
+    '</div>'+
+    '<div class="cb">'+body+'</div>'+
+  '</div>';
+}
+
+function sec(t,v){
+  if(!v.trim())return'';
+  return'<div class="sec"><div class="stitle">'+esc(t)+'</div><div class="sc">'+mdHtml(v)+'</div></div>';
+}
+
+function mdHtml(text){
+  return text.split('\n').map(function(l){
+    if(/^\s*-\s*\[x\]/i.test(l))return'<div class="tdone">✅ '+esc(l.replace(/^\s*-\s*\[x\]\s*/i,''))+'</div>';
+    if(/^\s*-\s*\[\s\]/.test(l))return'<div class="tpend">🔲 '+esc(l.replace(/^\s*-\s*\[\s\]\s*/,''))+'</div>';
+    if(/^\s*-\s*⏳/.test(l))return'<div class="tprog">⏳ '+esc(l.replace(/^\s*-\s*⏳\s*/,''))+'</div>';
+    if(/^>\s/.test(l))return'<div class="bq">'+inl(esc(l.replace(/^>\s/,'')))+'</div>';
+    var fm=l.match(/^\s*-\s+`([^`]+)`(.*)/);
+    if(fm)return'<div style="margin:.15rem 0"><span class="fc">'+esc(fm[1])+'</span> '+inl(esc(fm[2]))+'</div>';
+    if(/^\s*-\s+/.test(l))return'<div style="margin:.15rem 0;padding-left:.35rem">• '+inl(esc(l.replace(/^\s*-\s+/,'')))+'</div>';
+    if(/^\d+\.\s/.test(l))return'<div style="margin:.15rem 0;padding-left:.5rem">'+inl(esc(l))+'</div>';
+    if(l.trim())return'<div style="margin:.1rem 0">'+inl(esc(l))+'</div>';
+    return'<div style="height:.3rem"></div>';
+  }).join('');
+}
+
+function inl(s){
+  return s.replace(/`([^`]+)`/g,'<span class="ic">$1</span>')
+          .replace(/\*\*([^*]+)\*\*/g,'<strong style="color:var(--text)">$1</strong>');
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function tog(c){c.classList.toggle('open');}
+function reset(){
+  if(isStandalone)return; // standalone mode: no going back
+  document.getElementById('app').style.display='none';
+  document.getElementById('landing').style.display='flex';
+  fi.value='';sessions=[];
+}
+</script>
+</body>
+</html>
